@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "108459155466",
+    "firebase_url": "https://patient-followup-5a2b9-default-rtdb.firebaseio.com",
+    "project_id": "patient-followup-5a2b9",
+    "storage_bucket": "patient-followup-5a2b9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:108459155466:android:53d4603b5b672b5c74fff3",
+        "android_client_info": {
+          "package_name": "com.example.followpat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWmfCfpjg_NppiTWqGTgLoIEiiLpUR2DQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#5F9EA0"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="97dp"
+        android:layout_marginBottom="32dp"
+        android:gravity="center"
+        android:text="HASTA BASINÇ TAKİP UYGULAMASI DOKTOR GİRİŞİ"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:typeface="serif" />
+
+    <EditText
+        android:id="@+id/tcKimlikNoEditText"
+        android:layout_width="match_parent"
+        android:layout_height="73dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#FFFFFF"
+        android:hint="TC Kimlik No" />
+
+    <EditText
+        android:id="@+id/passwordEditText"
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#FFFFFF"
+        android:hint="Şifre"
+        android:inputType="textPassword" />
+
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#4682B4"
+        android:text="Giriş"
+        android:textColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/resultTextView"
+        android:layout_width="match_parent"
+        android:layout_height="97dp"
+        android:gravity="center"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp" />
+
+</LinearLayout>

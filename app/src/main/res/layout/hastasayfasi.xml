@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="69dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="serif"
+        android:gravity="center"
+        android:text="Hasta Bilgileri"
+        android:textSize="24sp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TableLayout
+            android:id="@+id/patientInfoTable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="*">
+
+            <!-- Tablo başlıkları -->
+            <TableRow>
+
+                <TextView
+                    android:layout_width="118dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="AcceptDate" />
+                <TextView
+                    android:text="Barcode"
+                    android:layout_weight="1"
+                    android:gravity="center"/>
+                <TextView
+                    android:text="Birth"
+                    android:layout_weight="1"
+                    android:gravity="center"/>
+                <TextView
+                    android:text="EntryDate"
+                    android:layout_weight="1"
+                    android:gravity="center"/>
+                <TextView
+                    android:text="Gender"
+                    android:layout_weight="1"
+                    android:gravity="center"/>
+                <TextView
+                    android:text="Name"
+                    android:layout_weight="1"
+                    android:gravity="center"/>
+                <TextView
+                    android:text="ResultDate"
+                    android:layout_weight="1"
+                    android:gravity="center"/>
+                <TextView
+                    android:text="Surname"
+                    android:layout_weight="1"
+                    android:gravity="center"/>
+                <TextView
+                    android:text="Tc"
+                    android:layout_weight="1"
+                    android:gravity="center"/>
+            </TableRow>
+
+            <!-- Veriler buraya eklenecek -->
+
+        </TableLayout>
+    </ScrollView>
+</LinearLayout>
