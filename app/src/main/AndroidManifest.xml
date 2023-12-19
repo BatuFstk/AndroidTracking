@@ -2,12 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+
+
+    <!-- Diğer gerekli izinleri buraya ekleyin -->
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/arslantek"
-        android:label="@string/app_name"
+        android:label="@string/HASTA"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FollowPat"
@@ -16,7 +20,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
+            android:label="@string/HASTA"
             android:theme="@style/Theme.FollowPat">
 
             <intent-filter>
@@ -28,7 +32,7 @@
         <activity
             android:name=".HomeActivity"
             android:exported="true"
-            android:label="Home"
+            android:label="@string/HASTABAK"
             android:theme="@style/Theme.FollowPat">
         </activity>
 

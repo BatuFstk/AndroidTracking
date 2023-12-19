@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">FollowPat</string>
+    <string name="HASTA">HASTA BASINÇ TAKİP UYGULAMASI</string>
+    <string name="HASTABAK">HASTA BİLGİLERİ</string>
+
 </resources>
