@@ -1,11 +1,17 @@
 package com.example.followpat
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
+import android.view.ViewGroup
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
@@ -14,20 +20,100 @@ import java.util.Locale
 
 
 
+
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var userId: String
+    private lateinit var doktorName: String
+    private lateinit var doktorSurname: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.hastapage)
 
-        // Kullanıcının UID'sini al
+        // Kullanıcının UID'sini ve doktor bilgilerini al
         userId = intent.getStringExtra("UserId") ?: ""
+        doktorName = intent.getStringExtra("DoktorName") ?: ""
+        doktorSurname = intent.getStringExtra("DoktorSurname") ?: ""
 
+
+        getDoktorBilgileri(userId)
         // Firestore'dan hasta bilgilerini çek
         getHastaBilgileri(userId)
+
+        // Hoşgeldiniz mesajını göster
+        showWelcomeMessage()
     }
+    private fun getDoktorBilgileri(uid: String) {
+        val db = FirebaseFirestore.getInstance()
+        val userDocument = db.collection("UserData").document(uid)
+
+        userDocument.get()
+            .addOnSuccessListener { userSnapshot ->
+                doktorName = userSnapshot.getString("DoktorName") ?: ""
+                doktorSurname = userSnapshot.getString("DoktorSurname") ?: ""
+            }
+            .addOnFailureListener { exception ->
+                Toast.makeText(this, "Doktor bilgileri alınamadı: ${exception.message}", Toast.LENGTH_SHORT).show()
+            }
+    }
+    private fun showWelcomeAlert() {
+        val welcomeMessage = "Hoşgeldiniz, Sayın Dr. $doktorName $doktorSurname"
+
+        val alertDialog = AlertDialog.Builder(this)
+            .setTitle("Hoşgeldiniz")
+            .setMessage(welcomeMessage)
+            .setPositiveButton("Tamam") { dialog, _ ->
+                // Tamam butonuna basılınca bir şey yapılmasını istiyorsanız buraya ekleyebilirsiniz
+                dialog.dismiss()
+            }
+            .create()
+
+        alertDialog.show()
+    }
+    private fun showErrorAlert(errorMessage: String) {
+        val alertDialog = AlertDialog.Builder(this)
+            .setTitle("Hata")
+            .setMessage(errorMessage)
+            .setPositiveButton("Tamam") { dialog, _ ->
+                // Tamam butonuna basılınca bir şey yapılmasını istiyorsanız buraya ekleyebilirsiniz
+                dialog.dismiss()
+            }
+            .create()
+
+        alertDialog.show()
+    }
+    private fun showWelcomeMessage() {
+        val welcomeTextView = TextView(this)
+        welcomeTextView.text = "Hoşgeldiniz, Sayın Dr. $doktorName $doktorSurname"
+        welcomeTextView.setTextColor(ContextCompat.getColor(this, R.color.cadet_blue))// Cadet Blue rengi
+        welcomeTextView.textSize = 18f
+        welcomeTextView.setTypeface(null, Typeface.BOLD)
+        welcomeTextView.setPadding(8, 8, 8, 8)
+
+        // Hoşgeldiniz mesajını containerLayout'a ekle
+        val containerLayout: LinearLayout = findViewById(R.id.containerLayout)
+        containerLayout.addView(welcomeTextView)
+
+        // Buton gibi görünen kareyi oluştur
+        val doktorButton = Button(this)
+        doktorButton.layoutParams = ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        doktorButton.text = "Doktor: $doktorName $doktorSurname"
+        doktorButton.setTextColor(Color.WHITE)
+        doktorButton.setBackgroundResource(R.drawable.button_style) // R.drawable.button_style drawable'ını oluşturun
+        doktorButton.setOnClickListener {
+            // Butona tıklandığında yapılacak işlemleri buraya ekleyin
+            // Örneğin, doktor bilgilerini gösteren bir sayfaya yönlendirebilirsiniz.
+            Toast.makeText(this, "Doktor Bilgileri Gösterildi", Toast.LENGTH_SHORT).show()
+        }
+
+        // Butonu containerLayout'a ekle
+        containerLayout.addView(doktorButton)
+    }
+
 
     override fun onBackPressed() {
         // Geri tuşuna basıldığında aktiviteyi sıfırlama mantığını ekle
@@ -107,9 +193,18 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun showHastaDetay(hasta: HastaBilgisi, containerLayout: LinearLayout) {
-        // Hasta detaylarını göstermek için yeni bir TextView oluşturun ve containerLayout'a ekleyin
+        // Hasta detaylarını göstermek için yeni bir TextView oluşturun
         val detayTextView = TextView(this)
-        detayTextView.text = "Ad: ${hasta.name}\nSoyad: ${hasta.surname}\nTc: ${hasta.tc}\nDoğum Tarihi: ${hasta.dogumTarihi}\nCinsiyet: ${hasta.gender}\nKabul Tarihi: ${hasta.kabulTarihi}\nOnay Tarihi: ${hasta.onayTarihi}\nSonuç Tarihi: ${hasta.sonucTarihi}\nBarcode: ${hasta.barcode}"
+        detayTextView.text =
+            "Ad: ${hasta.name}\n" +
+                    "Soyad: ${hasta.surname}\n" +
+                    "Tc: ${hasta.tc}\n" +
+                    "Doğum Tarihi: ${hasta.dogumTarihi}\n" +
+                    "Cinsiyet: ${hasta.gender}\n" +
+                    "Kabul Tarihi: ${hasta.kabulTarihi}\n" +
+                    "Onay Tarihi: ${hasta.onayTarihi}\n" +
+                    "Sonuç Tarihi: ${hasta.sonucTarihi}\n" +
+                    "Barcode: ${hasta.barcode}"
         detayTextView.setTextColor(resources.getColor(R.color.black))
         detayTextView.textSize = 16f
         detayTextView.setPadding(8, 8, 8, 8)
@@ -119,7 +214,24 @@ class HomeActivity : AppCompatActivity() {
 
         // Detayları containerLayout'a ekle
         containerLayout.addView(detayTextView)
+
+        // "BASINÇ DEĞERİNİ GETİR" adlı butonu oluşturun
+        val basincButton = Button(this)
+        basincButton.text = "BASINÇ DEĞERİNİ GETİR"
+        basincButton.setTextColor(Color.WHITE)
+        basincButton.setBackgroundResource(R.color.purple_500) // Mor renkte
+        basincButton.setTypeface(null, Typeface.BOLD) // Kalın yazı stili
+        basincButton.setOnClickListener {
+            // Butona tıklandığında yapılacak işlemleri buraya ekleyin
+            // Örneğin, basınç değerini getiren bir fonksiyonu çağırabilirsiniz
+            // ve sonucu kullanıcıya gösterebilirsiniz.
+            Toast.makeText(this, "Basınç Değeri Getirildi", Toast.LENGTH_SHORT).show()
+        }
+
+        // Butonu containerLayout'a ekle
+        containerLayout.addView(basincButton)
     }
+
 
 }
 

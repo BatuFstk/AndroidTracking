@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <!-- Hasta Bilgileri Sütunu (Dinamik Olarak Eklenir) -->
+
 
     </LinearLayout>
 </ScrollView>
